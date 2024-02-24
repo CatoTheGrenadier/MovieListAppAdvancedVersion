@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2800AE602B8AABDF00BEFD51 /* MovieData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2800AE5F2B8AABDF00BEFD51 /* MovieData.swift */; };
+		2800AE632B8AB46100BEFD51 /* MasterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2800AE622B8AB46100BEFD51 /* MasterView.swift */; };
 		2851ADBA2B8A7F4B008FFBB8 /* MovieListAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2851ADB92B8A7F4B008FFBB8 /* MovieListAppApp.swift */; };
 		2851ADBC2B8A7F4B008FFBB8 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2851ADBB2B8A7F4B008FFBB8 /* TableView.swift */; };
 		2851ADBE2B8A7F4D008FFBB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2851ADBD2B8A7F4D008FFBB8 /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		2800AE5F2B8AABDF00BEFD51 /* MovieData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieData.swift; sourceTree = "<group>"; };
+		2800AE622B8AB46100BEFD51 /* MasterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterView.swift; sourceTree = "<group>"; };
 		2851ADB62B8A7F4B008FFBB8 /* MovieListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2851ADB92B8A7F4B008FFBB8 /* MovieListAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListAppApp.swift; sourceTree = "<group>"; };
 		2851ADBB2B8A7F4B008FFBB8 /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
@@ -76,6 +78,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2800AE612B8AB44800BEFD51 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2851ADBB2B8A7F4B008FFBB8 /* TableView.swift */,
+				2800AE622B8AB46100BEFD51 /* MasterView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		2851ADAD2B8A7F4B008FFBB8 = {
 			isa = PBXGroup;
 			children = (
@@ -99,9 +110,9 @@
 		2851ADB82B8A7F4B008FFBB8 /* MovieListApp */ = {
 			isa = PBXGroup;
 			children = (
+				2800AE612B8AB44800BEFD51 /* Views */,
 				2851ADE42B8A8091008FFBB8 /* Models */,
 				2851ADB92B8A7F4B008FFBB8 /* MovieListAppApp.swift */,
-				2851ADBB2B8A7F4B008FFBB8 /* TableView.swift */,
 				2851ADBD2B8A7F4D008FFBB8 /* Assets.xcassets */,
 				2851ADBF2B8A7F4D008FFBB8 /* MovieListApp.entitlements */,
 				2851ADC02B8A7F4D008FFBB8 /* Preview Content */,
@@ -276,6 +287,7 @@
 				2800AE602B8AABDF00BEFD51 /* MovieData.swift in Sources */,
 				2851ADBC2B8A7F4B008FFBB8 /* TableView.swift in Sources */,
 				2851ADBA2B8A7F4B008FFBB8 /* MovieListAppApp.swift in Sources */,
+				2800AE632B8AB46100BEFD51 /* MasterView.swift in Sources */,
 				2851ADE62B8A80B1008FFBB8 /* MovieModels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

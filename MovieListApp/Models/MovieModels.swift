@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MovieResults: Decodable {
+class MovieResults: Identifiable,Decodable {
     let page: Int?
     let numResults: Int?
     let numPages: Int?
@@ -22,7 +22,7 @@ class MovieResults: Decodable {
 }
 
 
-class MovieInfo: Decodable {
+class MovieInfo: Identifiable, Decodable {
     let id: Int
     let posterPath: String?
     let title: String
