@@ -68,7 +68,7 @@ class MoviePics: ObservableObject, Decodable{
         if !self.finished{
             var counter = 0
             downloadMoviePics(id: id, completed: { r in
-                for i in r.backdrops ?? []{
+                for i in r.backdrops {
                     getImage(url: i.file_path ?? "", size: size, completed: { g in
                         self.backdrops.append(PicData(id: i.file_path ?? "", img: g))
                     })

@@ -18,12 +18,11 @@ struct SingleMovieRow: View{
                  AsyncImage(url:URL(string: "https://image.tmdb.org/t/p/w92/\(path)")) { image in
                      image
                          .resizable()
-                         .scaledToFit()
+                         .frame(width:150,height: 100)
                  } placeholder: {
                      ProgressView()
                  }
                  .frame(alignment:.leading)
-                 .frame(width:150)
                  .padding(.horizontal,15)
              }
             
@@ -33,7 +32,7 @@ struct SingleMovieRow: View{
                 .foregroundColor(Color.black)
                 .onAppear(){
                     downloadMoviePics(id: singleMovie.id){ results in
-                        let backdrops = results.backdrops
+                        let backdrops = results.posters
                         for backdrop in backdrops{
                             path = backdrop.file_path ?? "default"
                         }

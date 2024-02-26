@@ -29,7 +29,6 @@ func downloadMovieList(type: String, completed: @escaping (MovieResults) -> () )
 }
 
 func downloadMoviePics(id: Int, completed: @escaping (MoviePics) -> () ) {
-    print("https://api.themoviedb.org/3/movie/\(id)/images?api_key=" + apiKey)
     let url = URL(string: "https://api.themoviedb.org/3/movie/\(id)/images?api_key=" + apiKey)
     URLSession.shared.dataTask(with: url!){ (data, response, err) in
         if err == nil {
@@ -48,7 +47,6 @@ func downloadMoviePics(id: Int, completed: @escaping (MoviePics) -> () ) {
 
 
 func getImage(url: String?, size: String, completed: @escaping (PicData) -> ()) {
-    print("http://image.tmdb.org/t/p/\(size)/\(url ?? "default")?api_key=" + apiKey)
     let url = URL(string: "http://image.tmdb.org/t/p/\(size)/\(url ?? "default")?api_key=" + apiKey)
     URLSession.shared.dataTask(with: url!){ (data, response, err) in
         if err == nil {

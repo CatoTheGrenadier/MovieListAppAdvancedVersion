@@ -11,18 +11,30 @@ import SwiftUI
 struct MasterView: View {
     @State private var movieResults: MovieResults?
     @State private var dummy_name = 0
+    @State var type : String
+    var type_name: String {
+        if type == "popular" {
+            return "Popular"
+        } else if type == "top_rated" {
+            return "Top Rated"
+        } else if type == "now_playing" {
+                return "Now Playing"
+        } else if type == "upcoming" {
+                return "Upcoming"
+        } else {
+            return "Unknown"
+        }
+    }
+    
     var body: some View {
         VStack(alignment:.leading) {
-            Text("Popular Movies")
+            Text("\(type_name)")
                 .fontWeight(.bold)
-                .padding(.vertical,50)
+                .padding(.bottom,50)
                 .font(.largeTitle)
                 .onAppear {
-                    downloadMovieList(type: "popular") { results in
+                    downloadMovieList(type: type) { results in
                         movieResults = results
-                        for k in movieResults!.movies{
-                            print(k.originalTitle ?? "default")
-                        }
                         dummy_name += 1
                     }
                 }
@@ -35,6 +47,9 @@ struct MasterView: View {
                                 SingleMovieRow(singleMovie: singleMovie)
                             }
                         )
+                        Divider()
+                            .background(Color.black)
+                            .padding(.horizontal,0)
                     }
                 }
             }

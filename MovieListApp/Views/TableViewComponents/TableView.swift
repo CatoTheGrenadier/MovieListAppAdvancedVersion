@@ -12,7 +12,10 @@ struct TableView: View {
         VStack {
             NavigationView{
                 ScrollView{
-                    MasterView()
+                    TableGrids(type: "popular")
+                    TableGrids(type: "top_rated")
+                    TableGrids(type: "upcoming")
+                    TableGrids(type: "now_playing")
                 }
             }
         }
