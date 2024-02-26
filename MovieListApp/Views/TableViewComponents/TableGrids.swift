@@ -9,7 +9,10 @@ import Foundation
 import SwiftUI
 
 struct TableGrids:View {
+    @State var Genres = GenresMap()
+    @State var DeletedMovies = DeletedMovieIds()
     @State var type:String
+    
     var type_name: String {
         if type == "popular" {
             return "Popular"
@@ -33,10 +36,16 @@ struct TableGrids:View {
             Text("\(type_name)")
                 .fontWeight(.bold)
                 .font(.largeTitle)
-                .padding(.horizontal,40)
+                .padding(.trailing,40)
+                .swipeActions {
+                        Button("Burn") {
+                            print("Right on!")
+                        }
+                            .tint(.red)
+                    }
             
             NavigationLink(
-                destination: MasterView(type: type)
+                destination: MasterView(Genres:Genres,DeletedMovies:DeletedMovies ,type: type)
                             .padding()
                 ,
                 label: {
@@ -53,5 +62,5 @@ struct TableGrids:View {
 }
 
 #Preview {
-    TableView()
+    TopView()
 }

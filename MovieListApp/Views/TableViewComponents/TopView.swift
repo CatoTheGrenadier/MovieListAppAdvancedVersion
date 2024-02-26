@@ -7,21 +7,23 @@
 
 import SwiftUI
 
-struct TableView: View {
+struct TopView: View {
     var body: some View {
-        VStack {
-            NavigationView{
+        NavigationView{
+            List{
                 ScrollView{
                     TableGrids(type: "popular")
                     TableGrids(type: "top_rated")
                     TableGrids(type: "upcoming")
                     TableGrids(type: "now_playing")
                 }
+                .padding(0)
             }
         }
     }
+    
 }
 
 #Preview {
-    TableView()
+    TopView()
 }

@@ -43,5 +43,5 @@ struct DetailViewBackButton:View {
 }
 
 #Preview {
-    TableView()
+    TopView()
 }

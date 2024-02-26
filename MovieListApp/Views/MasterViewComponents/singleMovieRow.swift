@@ -12,20 +12,25 @@ struct SingleMovieRow: View{
     @State var singleMovie: MovieInfo
     @State private var dummy_image = 0
     @State private var path = ""
+    @State private var updateState = false
     var body: some View{
         HStack{
-             if dummy_image != 0{
+            if dummy_image != 0{
                  AsyncImage(url:URL(string: "https://image.tmdb.org/t/p/w92/\(path)")) { image in
                      image
                          .resizable()
-                         .frame(width:150,height: 100)
+                         .frame(width:120,height: 75)
                  } placeholder: {
                      ProgressView()
                  }
                  .frame(alignment:.leading)
                  .padding(.horizontal,15)
+                 .onAppear{
+                     Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) {_ in
+                         updateState.toggle()
+                     }
+                 }
              }
-            
             Text("\(singleMovie.title)")
                 .font(.title3)
                 .fontWeight(.bold)
@@ -35,15 +40,16 @@ struct SingleMovieRow: View{
                         let backdrops = results.posters
                         for backdrop in backdrops{
                             path = backdrop.file_path ?? "default"
+                            break
                         }
                         dummy_image += 1
                     }
-                }
+                 }
         }
         .frame(alignment:.leading)
     }
 }
 
 #Preview {
-    TableView()
+    TopView()
 }

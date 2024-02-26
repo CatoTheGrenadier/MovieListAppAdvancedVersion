@@ -64,4 +64,40 @@ func getImage(url: String?, size: String, completed: @escaping (PicData) -> ()) 
 }
 
 
+func downloadMovieGenres(completed: @escaping (MovieGenres) -> ()) {
+    let url = URL(string: "https://api.themoviedb.org/3/genre/movie/list?api_key=" + apiKey)
+    URLSession.shared.dataTask(with: url!){ (data, response, err) in
+        if err == nil {
+            guard let jsondata = data else { return }
+            do {
+                let results = try JSONDecoder().decode(MovieGenres.self, from: jsondata)
+                DispatchQueue.main.async {
+                    completed(results)
+                }
+            }catch{
+                print("JSON Downloading Error!")
+            }
+        }
+    }.resume()
+}
+
+
+func getGenre(completed: @escaping (SingleMovieGenre) -> ()) {
+    let url = URL(string: "https://api.themoviedb.org/3/genre/movie/list?api_key=" + apiKey)
+    URLSession.shared.dataTask(with: url!){ (data, response, err) in
+        if err == nil {
+            guard let jsondata = data else { return }
+            do {
+                let results = try JSONDecoder().decode(SingleMovieGenre.self, from: jsondata)
+                DispatchQueue.main.async {
+                    completed(results)
+                }
+            }catch{
+                print("JSON Downloading Error!")
+            }
+        }
+    }.resume()
+}
+
+
 

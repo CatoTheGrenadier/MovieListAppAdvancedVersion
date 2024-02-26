@@ -98,7 +98,61 @@ class PicData: Identifiable, Decodable{
     }
 }
 
+class MovieGenres: Identifiable, Decodable {
+    var genres: [SingleMovieGenre]
+    var finished: Bool = false
+    
+    private enum CodingKeys: String,CodingKey{
+        case genres = "genres"
+    }
+    
+    func getGer() {
+        if !self.finished{
+            var counter = 0
+            downloadMovieGenres(completed: { r in
+                for i in r.genres {
+                    getGenre(completed: { g in
+                        self.genres.append(SingleMovieGenre(genre:g))
+                    })
+                    counter += 1
+                }
+            })
+        }
+    }
+}
 
+
+class SingleMovieGenre: Identifiable,Decodable {
+    var id: Int?
+    var name: String?
+    
+    private enum CodingKeys: String, CodingKey {
+        case id = "id",
+             name = "name"
+    }
+    
+    init(genre: SingleMovieGenre) {
+        self.id = genre.id
+        self.name = genre.name
+    }
+    
+}
+
+class GenresMap: ObservableObject{
+    @Published var storedMap: [Int:String] = [:]
+    
+    init(){
+        downloadMovieGenres(){genres in
+            for genre in genres.genres{
+                self.storedMap[genre.id ?? 0] = genre.name ?? "default"
+            }
+        }
+    }
+}
+
+class DeletedMovieIds: ObservableObject{
+    @Published var deletedList: Set<Int> = Set<Int>()
+}
 
 
 

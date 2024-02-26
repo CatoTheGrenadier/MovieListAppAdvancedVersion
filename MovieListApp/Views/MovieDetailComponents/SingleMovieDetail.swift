@@ -10,8 +10,10 @@ import SwiftUI
 
 struct SingleMovieDetail: View{
     @State var singleMovie: MovieInfo
+    @State var Genres: GenresMap
     @State var dummy_detail = 0
     @State var backDrops: [PicData] = []
+    @State var genre: String = ""
     var body: some View{
         ScrollView{
             VStack(alignment:.leading){
@@ -32,6 +34,29 @@ struct SingleMovieDetail: View{
                 +
                 Text("  \(singleMovie.releaseDate ?? "default")")
                 
+                let genreList = singleMovie.genresIDs ?? []
+                HStack{
+                    Text("Genre: ")
+                        .font(.title3)
+                        .fontWeight(.heavy)
+                    ScrollView(.horizontal){
+                        HStack{
+                            ForEach(genreList, id: \.self){genreID in
+                                Text("\(Genres.storedMap[genreID ] ?? "default")")
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(Color.red)
+                            }
+                        }
+                    }
+                }
+                
+                HStack{
+                    Text("Rating: ")
+                        .font(.title3)
+                        .fontWeight(.heavy)
+                    
+                    StarsView(rating: (singleMovie.voteAverage ?? 0.0) / 2, maxRating: 5)
+                }
                 
                 if dummy_detail > 0{
                     ScrollView(.horizontal){
@@ -50,7 +75,7 @@ struct SingleMovieDetail: View{
                     }
                 }
                 
-                Text("Overview:")
+                Text("Description:")
                     .font(.title3)
                     .fontWeight(.heavy)
                 
@@ -63,6 +88,6 @@ struct SingleMovieDetail: View{
 }
 
 #Preview {
-    TableView()
+    TopView()
 }
 
