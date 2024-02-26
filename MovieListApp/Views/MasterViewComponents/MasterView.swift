@@ -11,11 +11,9 @@ import SwiftUI
 struct MasterView: View {
     @State private var movieResults: MovieResults?
     @State var Genres: GenresMap
-    @State var DeletedMovies: DeletedMovieIds
+    @ObservedObject var DeletedMovies: DeletedMovieIds
     @State private var dummy_name = 0
     @State private var isBackButtonHidden = false
-    @State private var updateState = false
-    @State private var inChildView = false
     @State var type : String
     var type_name: String {
         if type == "popular" {
@@ -41,41 +39,40 @@ struct MasterView: View {
                     downloadMovieList(type: type) { results in
                         movieResults = results
                         dummy_name += 1
-                        print(dummy_name)
-                        updateState.toggle()
                     }}
         }
         NavigationView{
             List{
                 if dummy_name != 0 {
-                        ForEach(movieResults?.movies ?? []) { singleMovie in
-                                NavigationLink(
-                                    destination: SingleMovieDetail(singleMovie:singleMovie,Genres:Genres)
-                                        .navigationBarBackButtonHidden(true)
-                                        .navigationBarItems(leading: DetailViewBackButton(type:type))
-                                        .onAppear {
-                                            isBackButtonHidden.toggle()
-                                        }
-                                        .onDisappear {
-                                            isBackButtonHidden.toggle()
-                                        }
-                                    ,
-                                    label: {
-                                        SingleMovieRow(singleMovie: singleMovie)
-                                            .swipeActions {
-                                                    Button {
-                                                        DeletedMovies.deletedList.insert(singleMovie.id)
-                                                        print("I just swiped")
-                                                        print(DeletedMovies.deletedList)
-                                                    }label: {
-                                                        Text("Hello swipe")
-                                                    }
+                    ForEach(movieResults?.movies ?? []) { singleMovie in
+                        if !DeletedMovies.deletedList.contains(singleMovie.id){
+                            NavigationLink(
+                                destination: SingleMovieDetail(singleMovie:singleMovie,Genres:Genres)
+                                    .navigationBarBackButtonHidden(true)
+                                    .navigationBarItems(leading: DetailViewBackButton(type:type))
+                                    .onAppear {
+                                        isBackButtonHidden.toggle()
+                                    }
+                                    .onDisappear {
+                                        isBackButtonHidden.toggle()
+                                    }
+                                ,
+                                label: {
+                                    SingleMovieRow(singleMovie: singleMovie)
+                                        .swipeActions {
+                                            Button {
+                                                DeletedMovies.deletedList.insert(singleMovie.id)
+                                                print(DeletedMovies.deletedList)
+                                            }label: {
+                                                Text("Delete Movie")
+                                                    .padding()
                                             }
-                                     }
-                                )
-                            }
-                        
-                    
+                                            .tint(.red)
+                                        }
+                                }
+                            )
+                        }
+                    }
                 }
             }
         }

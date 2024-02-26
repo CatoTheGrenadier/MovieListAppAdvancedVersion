@@ -9,9 +9,9 @@ import Foundation
 import SwiftUI
 
 struct TableGrids:View {
-    @State var Genres = GenresMap()
-    @State var DeletedMovies = DeletedMovieIds()
     @State var type:String
+    @State var DeletedMovies:DeletedMovieIds
+    @State var Genres : GenresMap
     
     var type_name: String {
         if type == "popular" {
