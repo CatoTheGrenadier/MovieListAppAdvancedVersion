@@ -45,7 +45,7 @@ struct MasterView: View {
             List{
                 if dummy_name != 0 {
                     ForEach(movieResults?.movies ?? []) { singleMovie in
-                        if !DeletedMovies.deletedList.contains(singleMovie.id){
+                        if !(DeletedMovies.deletedList ?? []).contains(singleMovie.id){
                             NavigationLink(
                                 destination: SingleMovieDetail(singleMovie:singleMovie,Genres:Genres)
                                     .navigationBarBackButtonHidden(true)
@@ -61,7 +61,8 @@ struct MasterView: View {
                                     SingleMovieRow(singleMovie: singleMovie)
                                         .swipeActions {
                                             Button {
-                                                DeletedMovies.deletedList.insert(singleMovie.id)
+                                                DeletedMovies.deletedList?.insert(singleMovie.id)
+                                                DeletedMovies.EncodeAndWriteToFile()
                                                 print(DeletedMovies.deletedList)
                                             }label: {
                                                 Text("Delete Movie")

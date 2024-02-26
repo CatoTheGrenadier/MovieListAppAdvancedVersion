@@ -150,8 +150,48 @@ class GenresMap: ObservableObject{
     }
 }
 
-class DeletedMovieIds: ObservableObject{
-    @Published var deletedList: Set<Int> = Set<Int>()
+class DeletedMovieIds: ObservableObject,Decodable, Encodable{
+    @Published var deletedList: Set<Int>?
+    
+    enum CodingKeys: String, CodingKey {
+            case deletedList
+        }
+    
+    init(){
+        deletedList = Set<Int>()
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        deletedList = try container.decode(Set<Int>.self, forKey: .deletedList)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(deletedList, forKey: .deletedList)
+    }
+    
+    func EncodeAndWriteToFile(){
+        do {
+            let jsonData = try JSONEncoder().encode(self)
+            if let jsonString = String(data: jsonData, encoding: .utf8) {
+                if let fileURL = Bundle.main.url(forResource: "Deleted", withExtension: "json") {
+                    do {
+                        try jsonString.write(to: fileURL, atomically: true, encoding: .utf8)
+                            print("JSON string written to file")
+                        } catch {
+                            print("Error writing JSON string to file")
+                        }
+                        print("File successfully grabbed!")
+                    
+                } else {
+                    print("File not found in the bundle.")
+                }
+            }
+        } catch let error {
+            print("Error encoding JSON: \(error)")
+        }
+    }
 }
 
 
