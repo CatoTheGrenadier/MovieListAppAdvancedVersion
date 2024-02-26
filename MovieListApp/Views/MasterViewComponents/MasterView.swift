@@ -11,6 +11,7 @@ import SwiftUI
 struct MasterView: View {
     @State private var movieResults: MovieResults?
     @State private var dummy_name = 0
+    @State private var isBackButtonHidden = false
     @State var type : String
     var type_name: String {
         if type == "popular" {
@@ -27,33 +28,47 @@ struct MasterView: View {
     }
     
     var body: some View {
-        VStack(alignment:.leading) {
-            Text("\(type_name)")
-                .fontWeight(.bold)
-                .padding(.bottom,50)
-                .font(.largeTitle)
-                .onAppear {
-                    downloadMovieList(type: type) { results in
-                        movieResults = results
-                        dummy_name += 1
-                    }
-                }
-            if !(dummy_name == 0) {
-                VStack(alignment: .leading) {
-                    ForEach(movieResults?.movies ?? []) { singleMovie in
-                        NavigationLink(
-                            destination: SingleMovieDetail(singleMovie:singleMovie),
-                            label: {
-                                SingleMovieRow(singleMovie: singleMovie)
+        NavigationView{
+            ScrollView{
+                VStack(alignment:.leading) {
+                    Text("\(type_name)")
+                        .fontWeight(.bold)
+                        .padding(.bottom,50)
+                        .font(.largeTitle)
+                        .onAppear {
+                            downloadMovieList(type: type) { results in
+                                movieResults = results
+                                dummy_name += 1
                             }
-                        )
-                        Divider()
-                            .background(Color.black)
-                            .padding(.horizontal,0)
+                        }
+                    if !(dummy_name == 0) {
+                        VStack(alignment: .leading) {
+                            ForEach(movieResults?.movies ?? []) { singleMovie in
+                                NavigationLink(
+                                    destination: SingleMovieDetail(singleMovie:singleMovie)
+                                        .navigationBarBackButtonHidden(true)
+                                        .navigationBarItems(leading: DetailViewBackButton(type:type))
+                                        .onAppear {
+                                            isBackButtonHidden.toggle()
+                                        }
+                                        .onDisappear {
+                                            isBackButtonHidden.toggle()
+                                        }
+                                    ,
+                                    label: {
+                                        SingleMovieRow(singleMovie: singleMovie)
+                                    }
+                                )
+                                Divider()
+                                    .background(Color.black)
+                                    .padding(.horizontal,0)
+                            }
+                        }
                     }
                 }
             }
         }
+        .navigationBarBackButtonHidden(isBackButtonHidden)
     }
 }
 

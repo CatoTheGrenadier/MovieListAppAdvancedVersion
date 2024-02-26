@@ -36,12 +36,9 @@ struct TableGrids:View {
                 .padding(.horizontal,40)
             
             NavigationLink(
-                destination: NavigationView{
-                    ScrollView{
-                        MasterView(type: type)
+                destination: MasterView(type: type)
                             .padding()
-                    }
-                },
+                ,
                 label: {
                     LazyVGrid(columns: columns){
                         Rectangle()
