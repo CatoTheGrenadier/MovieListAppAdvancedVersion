@@ -10,31 +10,35 @@ import SwiftUI
 
 struct MasterView: View {
     @State private var movieResults: MovieResults?
-    @State private var dummy = false
+    @State private var dummy_name = 0
     var body: some View {
-        VStack {
+        VStack(alignment:.leading) {
             Text("Popular Movies")
-                    .onAppear {
-                        downloadMovieList(type: "popular") { results in
-                            movieResults = results
-                            for k in movieResults!.movies{
-                                print(k.originalTitle ?? "default")
-                            }
-                            dummy.toggle()
+                .fontWeight(.bold)
+                .padding(.vertical,50)
+                .font(.largeTitle)
+                .onAppear {
+                    downloadMovieList(type: "popular") { results in
+                        movieResults = results
+                        for k in movieResults!.movies{
+                            print(k.originalTitle ?? "default")
                         }
+                        dummy_name += 1
                     }
-            if dummy{
-                VStack(spacing:0){
-                    ForEach(movieResults!.movies) { singleMovie in
-                        HStack{
-                            Text("\(singleMovie.title)")
-                                .padding()
-                        }
+                }
+            if !(dummy_name == 0) {
+                VStack(alignment: .leading) {
+                    ForEach(movieResults?.movies ?? []) { singleMovie in
+                        NavigationLink(
+                            destination: SingleMovieDetail(singleMovie:singleMovie),
+                            label: {
+                                SingleMovieRow(singleMovie: singleMovie)
+                            }
+                        )
                     }
                 }
             }
         }
-        .padding()
     }
 }
 
