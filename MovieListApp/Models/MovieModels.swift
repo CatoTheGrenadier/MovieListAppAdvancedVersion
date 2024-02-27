@@ -23,7 +23,7 @@ class MovieResults: Identifiable,Decodable {
 }
 
 
-class MovieInfo: Identifiable, Decodable {
+class MovieInfo: Identifiable, Encodable, Decodable {
     let id: Int
     let posterPath: String?
     let title: String
@@ -35,6 +35,20 @@ class MovieInfo: Identifiable, Decodable {
     let originalTitle: String?
     let popularity: Double?
     let genresIDs: [Int]?
+    
+    init(){
+        id = 0
+        posterPath = "null"
+        title = "null"
+        voteAverage = 0.0
+        voteCount = 0
+        releaseDate = "null"
+        backdropPath = "null"
+        overview = "null"
+        originalTitle = "null"
+        popularity = 0.0
+        genresIDs = []
+    }
     
     private enum CodingKeys: String, CodingKey {
         case id,
@@ -98,6 +112,7 @@ class PicData: Identifiable, Decodable{
     }
 }
 
+
 class MovieGenres: Identifiable, Decodable {
     var genres: [SingleMovieGenre]
     var finished: Bool = false
@@ -110,7 +125,7 @@ class MovieGenres: Identifiable, Decodable {
         if !self.finished{
             var counter = 0
             downloadMovieGenres(completed: { r in
-                for i in r.genres {
+                for _ in r.genres {
                     getGenre(completed: { g in
                         self.genres.append(SingleMovieGenre(genre:g))
                     })
@@ -158,7 +173,9 @@ class DeletedMovieIds: ObservableObject,Decodable, Encodable{
         }
     
     init(){
-        deletedList = Set<Int>()
+        loadDeletedMovies(completed: { r in
+            self.deletedList = r.deletedList
+        })
     }
     
     required init(from decoder: Decoder) throws {
@@ -176,6 +193,7 @@ class DeletedMovieIds: ObservableObject,Decodable, Encodable{
             let jsonData = try JSONEncoder().encode(self)
             if let jsonString = String(data: jsonData, encoding: .utf8) {
                 if let fileURL = Bundle.main.url(forResource: "Deleted", withExtension: "json") {
+                    print(fileURL)
                     do {
                         try jsonString.write(to: fileURL, atomically: true, encoding: .utf8)
                             print("JSON string written to file")
@@ -188,12 +206,64 @@ class DeletedMovieIds: ObservableObject,Decodable, Encodable{
                     print("File not found in the bundle.")
                 }
             }
-        } catch let error {
-            print("Error encoding JSON: \(error)")
+        } catch{
+            print("Error encoding JSON")
         }
     }
 }
 
+
+class LastMovie: Identifiable,Encodable, Decodable {
+    @Published var movie: MovieInfo?
+    @Published var showORnot: Bool = false
+    
+    private enum CodingKeys: String, CodingKey {
+        case movie = "movie",
+             showORnot = "showORnot"
+    }
+    
+    init(){
+        loadLastMovie(completed: { r in
+            self.movie = r.movie
+            self.showORnot = r.showORnot
+        })
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        movie = try container.decode(MovieInfo.self, forKey: .movie)
+        showORnot = try container.decode(Bool.self, forKey: .showORnot)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(movie, forKey: .movie)
+        try container.encode(showORnot, forKey: .showORnot)
+    }
+    
+    func EncodeAndWriteToFile(){
+        do {
+            let jsonData = try JSONEncoder().encode(self)
+            if let jsonString = String(data: jsonData, encoding: .utf8) {
+                if let fileURL = Bundle.main.url(forResource: "LastTime", withExtension: "json") {
+                    print(fileURL)
+                    do {
+                        try jsonString.write(to: fileURL, atomically: true, encoding: .utf8)
+                            print("JSON string written to file")
+                        } catch {
+                            print("Error writing JSON string to file")
+                        }
+                        print("File successfully grabbed!")
+                    
+                } else {
+                    print("File not found in the bundle.")
+                }
+            }
+        } catch{
+            print("Error encoding JSON")
+        }
+    }
+}
 
 
 

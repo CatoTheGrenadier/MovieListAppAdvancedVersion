@@ -14,6 +14,7 @@ struct SingleMovieDetail: View{
     @State var dummy_detail = 0
     @State var backDrops: [PicData] = []
     @State var genre: String = ""
+    @State var lastMovie:LastMovie
     var body: some View{
         ScrollView{
             VStack(alignment:.leading){
@@ -22,6 +23,9 @@ struct SingleMovieDetail: View{
                     .fontWeight(.bold)
                     .padding(.vertical)
                     .onAppear(){
+                        lastMovie.movie = singleMovie
+                        lastMovie.EncodeAndWriteToFile()
+                        lastMovie.showORnot = true
                         downloadMoviePics(id: singleMovie.id){ results in
                             backDrops = results.backdrops
                             dummy_detail += 1

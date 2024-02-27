@@ -12,6 +12,7 @@ struct TableGrids:View {
     @State var type:String
     @State var DeletedMovies:DeletedMovieIds
     @State var Genres : GenresMap
+    @State var lastMovie:LastMovie
     
     var type_name: String {
         if type == "popular" {
@@ -45,7 +46,7 @@ struct TableGrids:View {
                     }
             
             NavigationLink(
-                destination: MasterView(Genres:Genres,DeletedMovies:DeletedMovies ,type: type)
+                destination: MasterView(Genres:Genres,DeletedMovies:DeletedMovies ,type: type, lastMovie:lastMovie)
                             .padding()
                 ,
                 label: {

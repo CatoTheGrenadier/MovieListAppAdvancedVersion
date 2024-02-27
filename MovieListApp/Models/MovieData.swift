@@ -99,5 +99,44 @@ func getGenre(completed: @escaping (SingleMovieGenre) -> ()) {
     }.resume()
 }
 
+func loadDeletedMovies(completed: @escaping (DeletedMovieIds) -> ()){
+    if let fileURL = Bundle.main.url(forResource: "Deleted", withExtension: "json") {
+        print(fileURL)
+        do {
+            let data = try Data(contentsOf: fileURL)
+            let results = try JSONDecoder().decode(DeletedMovieIds.self, from: data)
+            DispatchQueue.main.async {
+                completed(results)
+            }
+            print("File successfully read!")
+        }
+        catch{
+            print("Error loading file!")
+        }
+        
+    } else {
+        print("File not found in the bundle.")
+    }
+}
+
+func loadLastMovie(completed: @escaping (LastMovie) -> ()){
+    if let fileURL = Bundle.main.url(forResource: "Deleted", withExtension: "json") {
+        print(fileURL)
+        do {
+            let data = try Data(contentsOf: fileURL)
+            let results = try JSONDecoder().decode(LastMovie.self, from: data)
+            DispatchQueue.main.async {
+                completed(results)
+            }
+            print("File successfully read!")
+        }
+        catch{
+            print("Error loading file!")
+        }
+        
+    } else {
+        print("File not found in the bundle.")
+    }
+}
 
 

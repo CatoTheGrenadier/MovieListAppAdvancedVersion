@@ -15,6 +15,8 @@ struct MasterView: View {
     @State private var dummy_name = 0
     @State private var isBackButtonHidden = false
     @State var type : String
+    @State var lastMovie : LastMovie
+    
     var type_name: String {
         if type == "popular" {
             return "Popular"
@@ -47,9 +49,8 @@ struct MasterView: View {
                     ForEach(movieResults?.movies ?? []) { singleMovie in
                         if !(DeletedMovies.deletedList ?? []).contains(singleMovie.id){
                             NavigationLink(
-                                destination: SingleMovieDetail(singleMovie:singleMovie,Genres:Genres)
-                                    .navigationBarBackButtonHidden(true)
-                                    .navigationBarItems(leading: DetailViewBackButton(type:type))
+                                destination: SingleMovieDetail(singleMovie:singleMovie,Genres:Genres, lastMovie:lastMovie)
+                                    
                                     .onAppear {
                                         isBackButtonHidden.toggle()
                                     }
@@ -63,7 +64,7 @@ struct MasterView: View {
                                             Button {
                                                 DeletedMovies.deletedList?.insert(singleMovie.id)
                                                 DeletedMovies.EncodeAndWriteToFile()
-                                                print(DeletedMovies.deletedList)
+                                                print(DeletedMovies.deletedList ?? [])
                                             }label: {
                                                 Text("Delete Movie")
                                                     .padding()
