@@ -23,9 +23,6 @@ struct SingleMovieDetail: View{
                     .fontWeight(.bold)
                     .padding(.vertical)
                     .onAppear(){
-                        lastMovie.movie = singleMovie
-                        lastMovie.EncodeAndWriteToFile()
-                        lastMovie.showORnot = true
                         downloadMoviePics(id: singleMovie.id){ results in
                             backDrops = results.backdrops
                             dummy_detail += 1

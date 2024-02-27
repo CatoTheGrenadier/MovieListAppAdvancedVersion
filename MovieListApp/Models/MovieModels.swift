@@ -216,16 +216,22 @@ class DeletedMovieIds: ObservableObject,Decodable, Encodable{
 class LastMovie: Identifiable,Encodable, Decodable {
     @Published var movie: MovieInfo?
     @Published var showORnot: Bool = false
+    @Published var category: String?
     
     private enum CodingKeys: String, CodingKey {
         case movie = "movie",
-             showORnot = "showORnot"
+             showORnot = "showORnot",
+             category = "category"
     }
     
     init(){
         loadLastMovie(completed: { r in
             self.movie = r.movie
             self.showORnot = r.showORnot
+            self.category = r.category
+            print(self.movie ?? MovieInfo())
+            print(self.showORnot)
+            print(self.category ?? "default")
         })
     }
     
@@ -233,19 +239,21 @@ class LastMovie: Identifiable,Encodable, Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         movie = try container.decode(MovieInfo.self, forKey: .movie)
         showORnot = try container.decode(Bool.self, forKey: .showORnot)
+        category = try container.decode(String.self, forKey: .category)
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(movie, forKey: .movie)
         try container.encode(showORnot, forKey: .showORnot)
+        try container.encode(category, forKey: .category)
     }
     
     func EncodeAndWriteToFile(){
         do {
             let jsonData = try JSONEncoder().encode(self)
             if let jsonString = String(data: jsonData, encoding: .utf8) {
-                if let fileURL = Bundle.main.url(forResource: "LastTime", withExtension: "json") {
+                if let fileURL = Bundle.main.url(forResource: "LastMovie", withExtension: "json") {
                     print(fileURL)
                     do {
                         try jsonString.write(to: fileURL, atomically: true, encoding: .utf8)

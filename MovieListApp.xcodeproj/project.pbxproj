@@ -23,7 +23,7 @@
 		289D1ED42B8CE8A900588181 /* DetailViewBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289D1ED32B8CE8A900588181 /* DetailViewBackButton.swift */; };
 		289D1ED62B8D0AFD00588181 /* StarRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289D1ED52B8D0AFD00588181 /* StarRating.swift */; };
 		289D1ED92B8D119900588181 /* Deleted.json in Resources */ = {isa = PBXBuildFile; fileRef = 289D1ED82B8D119900588181 /* Deleted.json */; };
-		289D1EDB2B8D11D400588181 /* LastTime.json in Resources */ = {isa = PBXBuildFile; fileRef = 289D1EDA2B8D11D400588181 /* LastTime.json */; };
+		289D1EDB2B8D11D400588181 /* LastMovie.json in Resources */ = {isa = PBXBuildFile; fileRef = 289D1EDA2B8D11D400588181 /* LastMovie.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,7 +64,7 @@
 		289D1ED32B8CE8A900588181 /* DetailViewBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewBackButton.swift; sourceTree = "<group>"; };
 		289D1ED52B8D0AFD00588181 /* StarRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRating.swift; sourceTree = "<group>"; };
 		289D1ED82B8D119900588181 /* Deleted.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Deleted.json; sourceTree = "<group>"; };
-		289D1EDA2B8D11D400588181 /* LastTime.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LastTime.json; sourceTree = "<group>"; };
+		289D1EDA2B8D11D400588181 /* LastMovie.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LastMovie.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,7 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				289D1ED82B8D119900588181 /* Deleted.json */,
-				289D1EDA2B8D11D400588181 /* LastTime.json */,
+				289D1EDA2B8D11D400588181 /* LastMovie.json */,
 			);
 			path = AppCache;
 			sourceTree = "<group>";
@@ -311,7 +311,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				289D1EDB2B8D11D400588181 /* LastTime.json in Resources */,
+				289D1EDB2B8D11D400588181 /* LastMovie.json in Resources */,
 				2851ADC22B8A7F4D008FFBB8 /* Preview Assets.xcassets in Resources */,
 				289D1ED92B8D119900588181 /* Deleted.json in Resources */,
 				2851ADBE2B8A7F4D008FFBB8 /* Assets.xcassets in Resources */,

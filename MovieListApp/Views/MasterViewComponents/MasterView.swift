@@ -16,6 +16,8 @@ struct MasterView: View {
     @State private var isBackButtonHidden = false
     @State var type : String
     @State var lastMovie : LastMovie
+    @State var isTypeActive: Bool = false
+    @State var jumpId: Int? = -1
     
     var type_name: String {
         if type == "popular" {
@@ -53,10 +55,20 @@ struct MasterView: View {
                                     
                                     .onAppear {
                                         isBackButtonHidden.toggle()
+                                        lastMovie.movie = singleMovie
+                                        lastMovie.showORnot = true
+                                        lastMovie.category = type
+                                        lastMovie.EncodeAndWriteToFile()
                                     }
                                     .onDisappear {
+                                        lastMovie.showORnot = false
+                                        lastMovie.EncodeAndWriteToFile()
                                         isBackButtonHidden.toggle()
                                     }
+                                ,
+                                tag:singleMovie.id
+                                ,
+                                selection: $jumpId
                                 ,
                                 label: {
                                     SingleMovieRow(singleMovie: singleMovie)
@@ -80,6 +92,11 @@ struct MasterView: View {
         }
         .padding(0)
         .navigationBarBackButtonHidden(isBackButtonHidden)
+        .onAppear{
+            if lastMovie.showORnot == true {
+                jumpId = (lastMovie.movie ?? MovieInfo()).id
+            }
+        }
     }
 }
 

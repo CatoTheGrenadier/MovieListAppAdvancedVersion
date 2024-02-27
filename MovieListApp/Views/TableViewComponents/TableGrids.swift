@@ -13,6 +13,7 @@ struct TableGrids:View {
     @State var DeletedMovies:DeletedMovieIds
     @State var Genres : GenresMap
     @State var lastMovie:LastMovie
+    @State var chosenType: String? = "null"
     
     var type_name: String {
         if type == "popular" {
@@ -38,16 +39,14 @@ struct TableGrids:View {
                 .fontWeight(.bold)
                 .font(.largeTitle)
                 .padding(.trailing,40)
-                .swipeActions {
-                        Button("Burn") {
-                            print("Right on!")
-                        }
-                            .tint(.red)
-                    }
             
             NavigationLink(
                 destination: MasterView(Genres:Genres,DeletedMovies:DeletedMovies ,type: type, lastMovie:lastMovie)
                             .padding()
+                ,
+                tag:type
+                ,
+                selection: $chosenType
                 ,
                 label: {
                     LazyVGrid(columns: columns){
@@ -57,6 +56,11 @@ struct TableGrids:View {
                     }
                 }
             )
+            .onAppear{
+                if lastMovie.showORnot && lastMovie.category ?? "default" == type{
+                    chosenType = type
+                }
+            }
         }
         .padding(.vertical)
     }

@@ -111,7 +111,7 @@ func loadDeletedMovies(completed: @escaping (DeletedMovieIds) -> ()){
             print("File successfully read!")
         }
         catch{
-            print("Error loading file!")
+            print("Error loading deleted movies file!")
         }
         
     } else {
@@ -120,7 +120,7 @@ func loadDeletedMovies(completed: @escaping (DeletedMovieIds) -> ()){
 }
 
 func loadLastMovie(completed: @escaping (LastMovie) -> ()){
-    if let fileURL = Bundle.main.url(forResource: "Deleted", withExtension: "json") {
+    if let fileURL = Bundle.main.url(forResource: "LastMovie", withExtension: "json") {
         print(fileURL)
         do {
             let data = try Data(contentsOf: fileURL)
@@ -131,7 +131,7 @@ func loadLastMovie(completed: @escaping (LastMovie) -> ()){
             print("File successfully read!")
         }
         catch{
-            print("Error loading file!")
+            print("Error loading lastmovie file!")
         }
         
     } else {
