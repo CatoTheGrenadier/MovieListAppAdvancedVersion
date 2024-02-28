@@ -63,7 +63,7 @@ struct SingleMovieDetail: View{
                     ScrollView(.horizontal){
                         HStack(spacing:10){
                             ForEach(backDrops){ backdrop in
-                                AsyncImage(url:URL(string: "https://image.tmdb.org/t/p/w92/\(backdrop.file_path ?? "default")")) { image in
+                                AsyncImage(url:URL(string: "https://image.tmdb.org/t/p/w500/\(backdrop.file_path ?? "default")")) { image in
                                     image
                                         .resizable()
                                         .scaledToFit()

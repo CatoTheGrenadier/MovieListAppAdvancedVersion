@@ -16,7 +16,7 @@ struct SingleMovieRow: View{
     var body: some View{
         HStack{
             if dummy_image != 0{
-                 AsyncImage(url:URL(string: "https://image.tmdb.org/t/p/w92/\(path)")) { image in
+                 AsyncImage(url:URL(string: "https://image.tmdb.org/t/p/w500/\(path)")) { image in
                      image
                          .resizable()
                          .frame(width:120,height: 75)
