@@ -27,6 +27,7 @@ struct TopView: View {
                 .padding(0)
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
 }

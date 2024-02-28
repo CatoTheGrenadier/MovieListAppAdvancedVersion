@@ -179,7 +179,6 @@ class DeletedMovieIds: ObservableObject,Decodable, Encodable{
             let jsonData = try JSONEncoder().encode(self)
             if let jsonString = String(data: jsonData, encoding: .utf8) {
                 if let fileURL = Bundle.main.url(forResource: "Deleted", withExtension: "json") {
-                    print(fileURL)
                     do {
                         try jsonString.write(to: fileURL, atomically: true, encoding: .utf8)
                             print("JSON string written to file")
@@ -215,10 +214,7 @@ class LastMovie: ObservableObject, Identifiable,Encodable, Decodable {
             self.movie = r.movie
             self.showORnot = r.showORnot
             self.category = r.category
-            print(self.movie ?? MovieInfo(),1)
-            print(self.showORnot,2)
-            print(self.category ?? "default",3)
-        })
+         })
     }
     
     required init(from decoder: Decoder) throws {
@@ -240,7 +236,6 @@ class LastMovie: ObservableObject, Identifiable,Encodable, Decodable {
             let jsonData = try JSONEncoder().encode(self)
             if let jsonString = String(data: jsonData, encoding: .utf8) {
                 if let fileURL = Bundle.main.url(forResource: "LastMovie", withExtension: "json") {
-                    print(fileURL)
                     do {
                         try jsonString.write(to: fileURL, atomically: true, encoding: .utf8)
                             print("JSON string written to file")

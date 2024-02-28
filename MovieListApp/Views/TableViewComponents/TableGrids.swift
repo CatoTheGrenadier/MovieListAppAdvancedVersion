@@ -57,7 +57,6 @@ struct TableGrids:View {
                 }
             )
             .onAppear{
-                print(type,lastMovie.category, type == lastMovie.category)
                 if lastMovie.showORnot{
                     chosenType = lastMovie.category ?? "default" 
                 }

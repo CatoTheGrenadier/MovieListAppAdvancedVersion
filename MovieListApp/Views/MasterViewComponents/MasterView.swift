@@ -92,6 +92,7 @@ struct MasterView: View {
         }
         .padding(0)
         .navigationBarBackButtonHidden(isBackButtonHidden)
+        .navigationViewStyle(StackNavigationViewStyle())
         .onAppear{
             if lastMovie.showORnot == true {
                 jumpId = (lastMovie.movie ?? MovieInfo()).id
