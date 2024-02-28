@@ -15,7 +15,7 @@ struct MasterView: View {
     @State private var dummy_name = 0
     @State private var isBackButtonHidden = false
     @State var type : String
-    @State var lastMovie : LastMovie
+    @ObservedObject var lastMovie : LastMovie
     @State var isTypeActive: Bool = false
     @State var jumpId: Int? = -1
     

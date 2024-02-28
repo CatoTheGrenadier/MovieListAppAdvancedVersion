@@ -77,20 +77,6 @@ class MoviePics: ObservableObject, Decodable{
              posters = "posters",
              logos = "logos"
     }
-    
-    func getImgs(id: Int, size: String = "w342") {
-        if !self.finished{
-            var counter = 0
-            downloadMoviePics(id: id, completed: { r in
-                for i in r.backdrops {
-                    getImage(url: i.file_path ?? "", size: size, completed: { g in
-                        self.backdrops.append(PicData(id: i.file_path ?? "", img: g))
-                    })
-                    counter += 1
-                }
-            })
-        }
-    }
 }
  
 
@@ -213,10 +199,10 @@ class DeletedMovieIds: ObservableObject,Decodable, Encodable{
 }
 
 
-class LastMovie: Identifiable,Encodable, Decodable {
+class LastMovie: ObservableObject, Identifiable,Encodable, Decodable {
     @Published var movie: MovieInfo?
     @Published var showORnot: Bool = false
-    @Published var category: String?
+    @Published var category: String? = "null"
     
     private enum CodingKeys: String, CodingKey {
         case movie = "movie",
@@ -229,9 +215,9 @@ class LastMovie: Identifiable,Encodable, Decodable {
             self.movie = r.movie
             self.showORnot = r.showORnot
             self.category = r.category
-            print(self.movie ?? MovieInfo())
-            print(self.showORnot)
-            print(self.category ?? "default")
+            print(self.movie ?? MovieInfo(),1)
+            print(self.showORnot,2)
+            print(self.category ?? "default",3)
         })
     }
     

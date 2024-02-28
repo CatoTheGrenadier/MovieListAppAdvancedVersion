@@ -37,9 +37,9 @@ struct SingleMovieRow: View{
                 .foregroundColor(Color.black)
                 .onAppear(){
                     downloadMoviePics(id: singleMovie.id){ results in
-                        let backdrops = results.posters
-                        for backdrop in backdrops{
-                            path = backdrop.file_path ?? "default"
+                        let posters = results.posters
+                        for poster in posters{
+                            path = poster.file_path ?? "default"
                             break
                         }
                         dummy_image += 1

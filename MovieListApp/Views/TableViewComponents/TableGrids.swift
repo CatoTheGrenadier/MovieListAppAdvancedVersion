@@ -12,7 +12,7 @@ struct TableGrids:View {
     @State var type:String
     @State var DeletedMovies:DeletedMovieIds
     @State var Genres : GenresMap
-    @State var lastMovie:LastMovie
+    @ObservedObject var lastMovie:LastMovie
     @State var chosenType: String? = "null"
     
     var type_name: String {
@@ -57,8 +57,9 @@ struct TableGrids:View {
                 }
             )
             .onAppear{
-                if lastMovie.showORnot && lastMovie.category ?? "default" == type{
-                    chosenType = type
+                print(type,lastMovie.category, type == lastMovie.category)
+                if lastMovie.showORnot{
+                    chosenType = lastMovie.category ?? "default" 
                 }
             }
         }
