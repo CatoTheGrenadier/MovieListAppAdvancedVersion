@@ -101,7 +101,6 @@ func getGenre(completed: @escaping (SingleMovieGenre) -> ()) {
 
 func loadDeletedMovies(completed: @escaping (DeletedMovieIds) -> ()){
     if let fileURL = Bundle.main.url(forResource: "Deleted", withExtension: "json") {
-        print(fileURL)
         do {
             let data = try Data(contentsOf: fileURL)
             let results = try JSONDecoder().decode(DeletedMovieIds.self, from: data)
@@ -121,7 +120,6 @@ func loadDeletedMovies(completed: @escaping (DeletedMovieIds) -> ()){
 
 func loadLastMovie(completed: @escaping (LastMovie) -> ()){
     if let fileURL = Bundle.main.url(forResource: "LastMovie", withExtension: "json") {
-        print(fileURL)
         do {
             let data = try Data(contentsOf: fileURL)
             let results = try JSONDecoder().decode(LastMovie.self, from: data)

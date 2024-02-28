@@ -76,7 +76,6 @@ struct MasterView: View {
                                             Button {
                                                 DeletedMovies.deletedList?.insert(singleMovie.id)
                                                 DeletedMovies.EncodeAndWriteToFile()
-                                                print(DeletedMovies.deletedList ?? [])
                                             }label: {
                                                 Text("Delete Movie")
                                                     .padding()
