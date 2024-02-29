@@ -35,11 +35,6 @@ struct TableGrids:View {
                 GridItem(.flexible())
             ]
             
-            Text("\(type_name)")
-                .fontWeight(.bold)
-                .font(.largeTitle)
-                .padding(.trailing,40)
-            
             NavigationLink(
                 destination: MasterView(Genres:Genres,DeletedMovies:DeletedMovies ,type: type, lastMovie:lastMovie)
                             .padding()
@@ -50,8 +45,13 @@ struct TableGrids:View {
                 ,
                 label: {
                     LazyVGrid(columns: columns){
-                        Rectangle()
+                        Text("\(type_name)")
+                            .fontWeight(.bold)
+                            .foregroundColor(.black)
+                            .font(.largeTitle)
                             .frame(width:300,height:200)
+                            .cornerRadius(30)
+                            .background(Color.yellow)
                             .cornerRadius(30)
                     }
                 }
