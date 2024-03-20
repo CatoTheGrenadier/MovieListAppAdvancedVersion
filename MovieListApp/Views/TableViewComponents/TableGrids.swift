@@ -14,6 +14,7 @@ struct TableGrids:View {
     @State var Genres : GenresMap
     @ObservedObject var lastMovie:LastMovie
     @State var chosenType: String? = "null"
+    @ObservedObject var profileRep: ProfileRepository
     
     var type_name: String {
         if type == "popular" {
@@ -36,7 +37,7 @@ struct TableGrids:View {
             ]
             
             NavigationLink(
-                destination: MasterView(Genres:Genres,DeletedMovies:DeletedMovies ,type: type, lastMovie:lastMovie)
+                destination: MasterView(Genres:Genres,DeletedMovies:DeletedMovies ,type: type, lastMovie:lastMovie,profileRep: profileRep)
                             .padding()
                 ,
                 tag:type

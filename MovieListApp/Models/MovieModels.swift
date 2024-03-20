@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import FirebaseFirestore
 
 class MovieResults: Identifiable,Decodable {
     let page: Int?
@@ -255,6 +256,22 @@ class LastMovie: ObservableObject, Identifiable,Encodable, Decodable {
     }
 }
 
+class Profile: ObservableObject, Identifiable, Codable {
+    @DocumentID var id : String?
+    var username = "username"
+    var gender = "gender"
+    var mood = "mood"
+    var picUrl = ""
+    var favouriteList : [Int]
+    
+    init(){
+        self.favouriteList = []
+    }
+}
+
+extension Profile {
+    static let documentName = "profile"
+}
 
 
 

@@ -18,6 +18,7 @@ struct MasterView: View {
     @ObservedObject var lastMovie : LastMovie
     @State var isTypeActive: Bool = false
     @State var jumpId: Int? = -1
+    @ObservedObject var profileRep: ProfileRepository
     
     var type_name: String {
         if type == "popular" {
@@ -50,40 +51,56 @@ struct MasterView: View {
                 if dummy_name != 0 {
                     ForEach(movieResults?.movies ?? []) { singleMovie in
                         if !(DeletedMovies.deletedList ?? []).contains(singleMovie.id){
-                            NavigationLink(
-                                destination: SingleMovieDetail(singleMovie:singleMovie,Genres:Genres, lastMovie:lastMovie)
+                            HStack{
+                                NavigationLink(
+                                    destination: SingleMovieDetail(singleMovie:singleMovie,Genres:Genres, lastMovie:lastMovie, profileRep: profileRep)
                                     
-                                    .onAppear {
-                                        isBackButtonHidden.toggle()
-                                        lastMovie.movie = singleMovie
-                                        lastMovie.showORnot = true
-                                        lastMovie.category = type
-                                        lastMovie.EncodeAndWriteToFile()
-                                    }
-                                    .onDisappear {
-                                        lastMovie.showORnot = false
-                                        lastMovie.EncodeAndWriteToFile()
-                                        isBackButtonHidden.toggle()
-                                    }
-                                ,
-                                tag:singleMovie.id
-                                ,
-                                selection: $jumpId
-                                ,
-                                label: {
-                                    SingleMovieRow(singleMovie: singleMovie)
-                                        .swipeActions {
-                                            Button {
-                                                DeletedMovies.deletedList?.insert(singleMovie.id)
-                                                DeletedMovies.EncodeAndWriteToFile()
-                                            }label: {
-                                                Text("Delete Movie")
-                                                    .padding()
-                                            }
-                                            .tint(.red)
+                                        .onAppear {
+                                            isBackButtonHidden.toggle()
+                                            lastMovie.movie = singleMovie
+                                            lastMovie.showORnot = true
+                                            lastMovie.category = type
+                                            lastMovie.EncodeAndWriteToFile()
                                         }
-                                }
-                            )
+                                        .onDisappear {
+                                            lastMovie.showORnot = false
+                                            lastMovie.EncodeAndWriteToFile()
+                                            isBackButtonHidden.toggle()
+                                        }
+                                    ,
+                                    tag:singleMovie.id
+                                    ,
+                                    selection: $jumpId
+                                    ,
+                                    label: {
+                                        SingleMovieRow(singleMovie: singleMovie, profileRep: profileRep)
+                                            .swipeActions {
+                                                if profileRep.profile.favouriteList.contains(singleMovie.id) {
+                                                    Button("♡ Unfavourite") {
+                                                        DispatchQueue.main.async{
+                                                            profileRep.unfavouriteMovie(movieId: singleMovie.id)
+                                                        }
+                                                    }
+                                                    .tint(.gray)
+                                                } else {
+                                                    Button("♥ Favourite") {
+                                                        DispatchQueue.main.async{
+                                                            profileRep.favouriteMovie(movieId: singleMovie.id)
+                                                        }
+                                                    }
+                                                    .tint(.green)
+                                                }
+                                                
+                                                Button("Delete") {
+                                                    DeletedMovies.deletedList?.insert(singleMovie.id)
+                                                    DeletedMovies.EncodeAndWriteToFile()
+                                                }
+                                                .tint(.red)
+                                            }
+                                    }
+                                )
+                                .padding(.horizontal,15)
+                            }
                         }
                     }
                 }

@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@main
 struct MovieListAppApp: App {
     var body: some Scene {
         WindowGroup {
