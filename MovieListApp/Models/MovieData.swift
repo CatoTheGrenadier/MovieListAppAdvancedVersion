@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-let apiKey = "5763f56108dc124de419d28d03df1748"
+let apiKey = 
 
 func downloadMovieList(type: String, completed: @escaping (MovieResults) -> () ) {
     let url = URL(string: "https://api.themoviedb.org/3/movie/\(type)?api_key=" + apiKey)
